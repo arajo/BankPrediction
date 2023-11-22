@@ -2,6 +2,7 @@ import os
 import streamlit as st
 
 from PIL import Image
+from st_keyup import st_keyup
 from ModelLoader import ModelLoader
 from Preprocessor import Preprocessor
 
@@ -13,17 +14,30 @@ def load_model():
     return ModelLoader()
 
 
+if "query" not in st.session_state:
+    st.session_state.query = ""
+
+
 def show_image(top_pred_bank, c2):
     default_image_path = "./data/bank_images/"
+
     if '국민' in top_pred_bank:
-        bank_image = Image.open(default_image_path + "kb.jpeg")
+        bank_image_path = "kb.jpeg"
     elif '신한' in top_pred_bank:
-        bank_image = Image.open(default_image_path + "shinhan.jpeg")
+        bank_image_path = "shinhan.jpeg"
     elif '농협' in top_pred_bank:
-        bank_image = Image.open(default_image_path + "nh.png")
+        bank_image_path = "nh.png"
+    elif '현대' in top_pred_bank:
+        bank_image_path = "hyundai.jpeg"
+    elif '키움' in top_pred_bank:
+        bank_image_path = "kiwoom.png"
+    elif '제주' in top_pred_bank:
+        bank_image_path = "jeju.jpeg"
     else:
-        bank_image = None
-    if bank_image:
+        bank_image_path = None
+
+    if bank_image_path:
+        bank_image = Image.open(default_image_path + bank_image_path)
         c2.image(bank_image)
 
 
@@ -42,8 +56,11 @@ st.image(
 
 st.title('')
 st.subheader('\n😎 입금기관 예측 테스트')
-query = st.text_input(
-    '아래에 계좌번호를 입력해주세요. 👇',
+st.text('아래에 계좌번호를 입력해주세요. 👇')
+query = st_keyup(
+    '',
+    key="0",
+    label_visibility='collapsed'
 )
 if query:
     data = preprocessor.preprocess([query])
