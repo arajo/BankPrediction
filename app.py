@@ -1,8 +1,7 @@
-import os
 import streamlit as st
-
 from PIL import Image
 from st_keyup import st_keyup
+
 from ModelLoader import ModelLoader
 from Preprocessor import Preprocessor
 
