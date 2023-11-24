@@ -62,6 +62,8 @@ query = st_keyup(
     label_visibility='collapsed'
 )
 if query:
+    if not query.isdigit():
+        st.error('Please enter an bank account number!')
     data = preprocessor.preprocess([query])
     predictions = model.predict_top_k(data)
 
