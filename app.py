@@ -66,10 +66,7 @@ query = st_keyup(
 
 if query:
     if not query.isdigit():
-        if log_query != query:
-            app_logger.error('input query: ' + query)
-            log_query = query
-
+        app_logger.error('input query: ' + query)
         st.error('Please enter an bank account number!')
     data = preprocessor.preprocess([query])
     predictions = model.predict_top_k(data)
@@ -79,6 +76,4 @@ if query:
         top_pred_bank = list(predictions.keys())[0]
         c1.write(predictions)
         show_image(top_pred_bank, c2)
-        if log_query != query:
-            app_logger.info('input query: ' + query)
-            log_query = query
+        app_logger.info('input query: ' + query + ' predictions: ' + str(predictions))
