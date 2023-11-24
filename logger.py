@@ -10,15 +10,13 @@ class Logger:
         self.log_level = logging.INFO
 
     def get_logger(self):
-        app_logger = getLogger()
-        for handler in app_logger.handlers:
-            if isinstance(handler, logging.StreamHandler):
-                return app_logger
-        handler = logging.StreamHandler()
-        handler.setFormatter(self.complex_formatter)
-        app_logger.addHandler(handler)
-        app_logger.setLevel(self.log_level)
-        return app_logger
+        logger = getLogger("streamlit-logger")
+        if not logger.handlers:
+            handler = logging.StreamHandler()
+            handler.setFormatter(self.complex_formatter)
+            logger.addHandler(handler)
+            logger.setLevel(self.log_level)
+        return logger
 
 
 app_logger = Logger().get_logger()
