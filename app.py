@@ -4,6 +4,7 @@ from st_keyup import st_keyup
 
 from ModelLoader import ModelLoader
 from Preprocessor import Preprocessor
+from logger import app_logger
 
 st.title('🏦 입금기관 예측 모델 테스트 💰')
 
@@ -56,13 +57,19 @@ st.image(
 st.title('')
 st.subheader('\n😎 입금기관 예측 테스트')
 st.text('아래에 계좌번호를 입력해주세요. 👇')
+log_query = ''
 query = st_keyup(
     '',
     key="0",
     label_visibility='collapsed'
 )
+
 if query:
     if not query.isdigit():
+        if log_query != query:
+            app_logger.error('input query: ' + query)
+            log_query = query
+
         st.error('Please enter an bank account number!')
     data = preprocessor.preprocess([query])
     predictions = model.predict_top_k(data)
@@ -72,3 +79,6 @@ if query:
         top_pred_bank = list(predictions.keys())[0]
         c1.write(predictions)
         show_image(top_pred_bank, c2)
+        if log_query != query:
+            app_logger.info('input query: ' + query)
+            log_query = query
