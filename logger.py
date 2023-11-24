@@ -11,15 +11,14 @@ class Logger:
 
     def get_logger(self):
         app_logger = getLogger()
-        handler = self.set_handler()
+        for handler in app_logger.handlers:
+            if isinstance(handler, logging.StreamHandler):
+                return app_logger
+        handler = logging.StreamHandler()
+        handler.setFormatter(self.complex_formatter)
         app_logger.addHandler(handler)
         app_logger.setLevel(self.log_level)
         return app_logger
-
-    def set_handler(self, ):
-        handler = logging.StreamHandler()
-        handler.setFormatter(self.complex_formatter)
-        return handler
 
 
 app_logger = Logger().get_logger()
