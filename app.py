@@ -56,12 +56,13 @@ st.image(
 
 st.title('')
 st.subheader('\n😎 입금기관 예측 테스트')
-st.text('아래에 계좌번호를 입력해주세요. 👇')
+st.text('아래에 계좌번호를 입력해주세요. 👇 (숫자, 최대 14자)')
 log_query = ''
 query = st_keyup(
     '',
     key="0",
-    label_visibility='collapsed'
+    label_visibility='collapsed',
+    max_chars=14
 )
 
 if query:
