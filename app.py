@@ -1,7 +1,9 @@
 import streamlit as st
 from PIL import Image
 from st_keyup import st_keyup
+from os import listdir
 
+import config
 from ModelLoader import ModelLoader
 from Preprocessor import Preprocessor
 from logger import app_logger
@@ -9,9 +11,13 @@ from logger import app_logger
 st.title('🏦 입금기관 예측 모델 테스트 💰')
 
 
+def get_model_list():
+    return [x for x in listdir(config.ModelConfig.MODEL_PATH) if x.endswith('keras')]
+
+
 @st.cache_resource
-def load_model():
-    return ModelLoader()
+def load_model(model_name):
+    return ModelLoader(model_name)
 
 
 if "query" not in st.session_state:
@@ -41,8 +47,15 @@ def show_image(top_pred_bank, c2):
         c2.image(bank_image)
 
 
+model_names = sorted(get_model_list(), reverse=True)
+model_name = model_names[0]
+model_name = st.selectbox(
+    'Choose model to use.',
+    model_names
+)
+
 model_load_state = st.text('Loading model...')
-model = load_model()
+model = load_model(model_name)
 preprocessor = Preprocessor()
 image = Image.open("./data/Picture1.png")
 model_load_state.text("All Loaded! (using st.cache)")

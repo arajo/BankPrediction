@@ -5,7 +5,7 @@ class ModelConfig:
     SHUFFLE_BUFFER_SIZE = 100
     EMBEDDING_DIM = 32
     NUM_TARGET = 52
-    MODEL_PATH = './models/checkpoint-epoch-500-batch-64-trial-003.keras'
+    MODEL_PATH = './models/'
     LABEL_FILE = 'data/label_map.json'
     BANK_NAME_FILE = 'data/bank_dic.json'
 
