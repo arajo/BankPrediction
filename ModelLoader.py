@@ -21,7 +21,7 @@ class ModelLoader:
         return results
 
     def build_model(self, model_name):
-        if model_name.split('.')[0] in ['001', '002', '003', '004']:
+        if model_name.split('.')[0][-3:] in ['001', '002', '003', '004']:
             return self.architecture_model_v1()
         else:
             return self.architecture_model_v2()
@@ -36,6 +36,7 @@ class ModelLoader:
             ]
         )
         model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+        return model
 
     @staticmethod
     def architecture_model_v2():
