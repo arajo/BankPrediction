@@ -5,6 +5,7 @@
 
 ### Model
 - Multi-class classification with LSTM
+- (Version 5) Test Data Accuracy: 91.35%
 - (Version 3) Test Data Accuracy: 89.81%
 
 
