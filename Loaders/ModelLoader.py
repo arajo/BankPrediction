@@ -53,11 +53,11 @@ class ModelLoader:
 
     @staticmethod
     def load_dictionary():
-        with open(ModelConfig.LABEL_FILE, 'r') as f:
+        with open(ModelConfig.LABEL_DICT_PATH, 'r') as f:
             label_map = json.load(f)
 
         inverse_label_map = {v: k for k, v in label_map.items()}
 
-        with open(ModelConfig.BANK_NAME_FILE, 'r') as f:
+        with open(ModelConfig.BANK_DICT_PATH, 'r') as f:
             bank_dic = json.load(f)
         return inverse_label_map, bank_dic

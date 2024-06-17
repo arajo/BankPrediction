@@ -4,8 +4,8 @@ from st_keyup import st_keyup
 from os import listdir
 
 import config
-from ModelLoader import ModelLoader
-from Preprocessor import Preprocessor
+from Loaders.ModelLoader import ModelLoader
+from Jobs.DataFormatter import DataFormatter
 from logger import app_logger
 
 st.title('🏦 입금기관 예측 모델 테스트 💰')
@@ -56,7 +56,7 @@ model_name = st.selectbox(
 
 model_load_state = st.text('Loading model...')
 model = load_model(model_name)
-preprocessor = Preprocessor()
+preprocessor = DataFormatter()
 image = Image.open("./data/Picture1.png")
 model_load_state.text("All Loaded! (using st.cache)")
 

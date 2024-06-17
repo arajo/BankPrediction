@@ -4,9 +4,9 @@ import xlwings as xw
 from config import ModelConfig
 
 
-class DataLoader:
+class SampleDataLoader:
     def __init__(self):
-        self.DATA_PATH = "./data/입금기관 계좌번호 학습 데이터(랜덤)_reformat.xlsx"
+        self.DATA_PATH = "../data/입금기관 계좌번호 학습 데이터(랜덤)_reformat.xlsx"
 
     def load_data(self):
         workbook = xw.Book(self.DATA_PATH)

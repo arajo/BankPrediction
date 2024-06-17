@@ -8,6 +8,8 @@
 - (Version 5) Test Data Accuracy: 91.35%
 - (Version 3) Test Data Accuracy: 89.81%
 
+### Version
+- python 3.10.10
 
 ### App demo
 - url: https://bankprediction-rpmximxeacjclgdn45hbq8.streamlit.app/
