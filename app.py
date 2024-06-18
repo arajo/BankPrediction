@@ -3,7 +3,7 @@ from PIL import Image
 from st_keyup import st_keyup
 from os import listdir
 
-import config
+from config import get_model_config, ModelConfigV2
 from Loaders.ModelLoader import ModelLoader
 from Jobs.DataFormatter import DataFormatter
 from logger import app_logger
@@ -12,12 +12,12 @@ st.title('🏦 입금기관 예측 모델 테스트 💰')
 
 
 def get_model_list():
-    return [x for x in listdir(config.ModelConfig.MODEL_PATH) if x.endswith('keras')]
+    return [x for x in listdir(ModelConfigV2.MODEL_PATH) if x.endswith('keras')]
 
 
 @st.cache_resource
-def load_model(model_name):
-    return ModelLoader(model_name)
+def load_model(model_name, MODEL_CONFIG):
+    return ModelLoader(model_name, MODEL_CONFIG)
 
 
 if "query" not in st.session_state:
@@ -55,8 +55,9 @@ model_name = st.selectbox(
 )
 
 model_load_state = st.text('Loading model...')
-model = load_model(model_name)
-preprocessor = DataFormatter()
+MODEL_CONFIG = get_model_config(model_name)
+model = load_model(model_name, MODEL_CONFIG)
+preprocessor = DataFormatter(MODEL_CONFIG)
 image = Image.open("./data/Picture1.png")
 model_load_state.text("All Loaded! (using st.cache)")
 
