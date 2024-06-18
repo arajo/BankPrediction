@@ -6,15 +6,13 @@ from sklearn.model_selection import train_test_split
 
 class DataLoader:
     def __init__(self, MODEL_CONFIG):
-        ROOT = "./data/"
-        self.DATASET_PATH = ROOT + "bank_accounts/merged.csv"
-        self.BANK_DICT_PATH = ROOT + f"code/{MODEL_CONFIG.VERSION}/bank_dic.json"
-        self.LABEL_DICT_PATH = ROOT + f"code/{MODEL_CONFIG.VERSION}/label_map.json"
-        self.TRAIN_DATA_PATH = ROOT + "bank_accounts/train.json"
-        self.VALID_DATA_PATH = ROOT + "bank_accounts/valid.json"
+        self.DATASET_PATH = "./data/bank_accounts/merged.csv"
+        self.TRAIN_DATA_PATH = "./data/bank_accounts/train.json"
+        self.VALID_DATA_PATH = "./data/bank_accounts/valid.json"
         self.label_map, self.inverse_label_map = {}, {}
         self.bank_dic, self.inverse_bank_dic = {}, {}
         self.STRATIFY_COL = 'bank'
+        self.MODEL_CONFIG = MODEL_CONFIG
 
     def generate_dict(self, data, save_dict=False):
         label_map = {l: i for i, l in enumerate(data.bank.unique())}
@@ -25,10 +23,10 @@ class DataLoader:
             bank_dic[row[1]['bank_name']] = row[1]['bank']
 
         if save_dict:
-            with open(self.BANK_DICT_PATH, "w+") as json_file:
+            with open(self.MODEL_CONFIG.BANK_DICT_PATH, "w+") as json_file:
                 json.dump(bank_dic, json_file)
 
-            with open(self.LABEL_DICT_PATH, "w+") as json_file:
+            with open(self.MODEL_CONFIG.LABEL_DICT_PATH, "w+") as json_file:
                 json.dump(label_map, json_file)
 
     def dataset_split(self, data, save_data=False, test_size=0.1):
@@ -51,7 +49,7 @@ class DataLoader:
 
     def run(self, mode):
         """
-        :param mode: {init (Create dataset), train, valid}
+        :param mode: {init (Create dataset), train, valid, pred}
         :return: dataset (pd.DataFrame)
         """
         if mode == 'init':
@@ -66,8 +64,8 @@ class DataLoader:
         elif mode == 'pred':
             data = None
 
-        self.label_map = self.load_dataset(self.LABEL_DICT_PATH)
-        self.bank_dic = self.load_dataset(self.BANK_DICT_PATH)
+        self.label_map = self.load_dataset(self.MODEL_CONFIG.LABEL_DICT_PATH)
+        self.bank_dic = self.load_dataset(self.MODEL_CONFIG.BANK_DICT_PATH)
         self.inverse_label_map = {v: k for k, v in self.label_map.items()}
         self.inverse_bank_dic = {v: k for k, v in self.bank_dic.items()}
         return data

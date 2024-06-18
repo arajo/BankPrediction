@@ -22,8 +22,8 @@ class ModelConfigV2:
     EMBEDDING_DIM = 32
     NUM_TARGET = 54
     MODEL_PATH = './Models/'
-    LABEL_DICT_PATH = f"../data/code/{VERSION}/bank_dic.json"
-    BANK_DICT_PATH = f"../data/code/{VERSION}/label_map.json"
+    LABEL_DICT_PATH = f"./data/code/{VERSION}/label_map.json"
+    BANK_DICT_PATH = f"./data/code/{VERSION}/bank_dic.json"
     n_trial = 2
     TRAIN_MODEL_NAME = f'checkpoint-epoch-{EPOCH}-batch-{BATCH_SIZE}-trial-v2-00{n_trial}.keras'
     TRAIN_MODEL_PATH = MODEL_PATH + TRAIN_MODEL_NAME

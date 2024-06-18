@@ -23,5 +23,5 @@ if __name__ == '__main__':
 
     test_account = ['77130201395276']
     test_model = MODEL_CONFIG.TRAIN_MODEL_NAME
-    TestModel(MODEL_CONFIG, dataloader.inverse_bank_dic, dataloader.inverse_label_map).test(test_model, test_account=test_account)
+    TestModel(MODEL_CONFIG).test(test_model, test_account=test_account)
 

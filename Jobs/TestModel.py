@@ -3,14 +3,13 @@ from Loaders.ModelLoader import ModelLoader
 
 
 class TestModel:
-    def __init__(self, MODEL_CONFIG, inverse_bank_dic, inverse_label_map):
-        self.inverse_bank_dic = inverse_bank_dic
-        self.inverse_label_map = inverse_label_map
+    def __init__(self, MODEL_CONFIG):
         self.MODEL_CONFIG = MODEL_CONFIG
 
     def test(self, model, test_dataset=None, test_account=None):
         print(f"### Test Model: {model}")
         model_loader = ModelLoader(model, self.MODEL_CONFIG)
+
         if test_dataset:
             scores = model_loader.model.evaluate(test_dataset)
             print("Accuracy: %.2f%%" % (scores[1] * 100))
