@@ -3,7 +3,7 @@ from PIL import Image
 from st_keyup import st_keyup
 from os import listdir
 
-from config import Config
+from Config import Config, BaseConfig
 from Loaders.ModelLoader import ModelLoader
 from Jobs.DataFormatter import DataFormatter
 from logger import app_logger
@@ -12,10 +12,10 @@ st.title('🏦 입금기관 예측 모델 테스트 💰')
 
 
 def get_model_list():
-    return [x for x in listdir(MODEL_CONFIG.MODEL_PATH) if x.endswith('keras')]
+    return [x for x in listdir(BaseConfig().BASE_MODEL_PATH) if x.endswith('keras')]
 
 
-@st.cache_resource
+# @st.cache_resource
 def load_model(model_name, model_config):
     return ModelLoader(model_name, model_config)
 
@@ -59,7 +59,7 @@ MODEL_CONFIG = Config(model_name).config
 model = load_model(model_name, MODEL_CONFIG)
 preprocessor = DataFormatter(MODEL_CONFIG)
 image = Image.open("./data/Picture1.png")
-model_load_state.text("All Loaded! (using st.cache)")
+model_load_state.text("All Loaded!")
 
 st.title('')
 st.subheader('🤖 모델 개념도')

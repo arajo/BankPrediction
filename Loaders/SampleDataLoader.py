@@ -1,7 +1,7 @@
 import pandas as pd
 import xlwings as xw
 
-from config import ModelConfig
+from Config import ModelConfig
 
 
 class SampleDataLoader:
