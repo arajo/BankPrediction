@@ -5,8 +5,8 @@ from Jobs.TestModel import TestModel
 from Config import Config
 
 if __name__ == '__main__':
-    MODEL_CONFIG = Config('v2').config
-    MODE = 'train'  # init, train, valid, pred
+    MODEL_CONFIG = Config('v3').config
+    MODE = 'pred'  # init, train, valid, pred
 
     dataloader = DataLoader(MODEL_CONFIG)
     train_dataformatter, test_dataformatter = DataFormatter(MODEL_CONFIG), DataFormatter(MODEL_CONFIG)

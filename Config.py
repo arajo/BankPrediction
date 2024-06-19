@@ -12,6 +12,6 @@ class Config:
             exec(f"self.config = ModelConfigV{_version}()")
 
         self.config.SHUFFLE_BUFFER_SIZE = self.config.BATCH_SIZE * 2
-        self.config.LABEL_DICT_PATH = f"./data/code/{self.config.VERSION}/label_map.json"
-        self.config.BANK_DICT_PATH = f"./data/code/{self.config.VERSION}/bank_dic.json"
+        self.config.LABEL_DICT_PATH = f"./data/code/{self.config.DICT_VERSION}/label_map.json"
+        self.config.BANK_DICT_PATH = f"./data/code/{self.config.DICT_VERSION}/bank_dic.json"
         self.config.INPUT_DIM = self.config.ADD_ENCODING + 10

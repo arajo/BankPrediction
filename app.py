@@ -3,7 +3,8 @@ from PIL import Image
 from st_keyup import st_keyup
 from os import listdir
 
-from Config import Config, BaseConfig
+from Config import Config
+from ModelConfig import BaseConfig
 from Loaders.ModelLoader import ModelLoader
 from Jobs.DataFormatter import DataFormatter
 from logger import app_logger

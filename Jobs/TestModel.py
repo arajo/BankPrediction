@@ -3,8 +3,8 @@ from Loaders.ModelLoader import ModelLoader
 
 
 class TestModel:
-    def __init__(self, MODEL_CONFIG):
-        self.MODEL_CONFIG = MODEL_CONFIG
+    def __init__(self, model_config):
+        self.MODEL_CONFIG = model_config
 
     def test(self, model, test_dataset=None, test_account=None):
         print(f"### Test Model: {model}")
