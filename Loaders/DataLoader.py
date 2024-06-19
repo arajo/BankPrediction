@@ -5,14 +5,15 @@ from sklearn.model_selection import train_test_split
 
 
 class DataLoader:
-    def __init__(self, MODEL_CONFIG):
-        self.DATASET_PATH = "./data/bank_accounts/merged.csv"
-        self.TRAIN_DATA_PATH = "./data/bank_accounts/train.json"
-        self.VALID_DATA_PATH = "./data/bank_accounts/valid.json"
+    DATASET_PATH = "./data/bank_accounts/merged.csv"
+    TRAIN_DATA_PATH = "./data/bank_accounts/train.json"
+    VALID_DATA_PATH = "./data/bank_accounts/valid.json"
+    STRATIFY_COL = 'bank'
+
+    def __init__(self, model_config):
         self.label_map, self.inverse_label_map = {}, {}
         self.bank_dic, self.inverse_bank_dic = {}, {}
-        self.STRATIFY_COL = 'bank'
-        self.MODEL_CONFIG = MODEL_CONFIG
+        self.MODEL_CONFIG = model_config
 
     def generate_dict(self, data, save_dict=False):
         label_map = {l: i for i, l in enumerate(data.bank.unique())}

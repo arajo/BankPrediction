@@ -6,13 +6,14 @@ from tensorflow.keras.preprocessing import sequence
 
 
 class DataFormatter:
-    def __init__(self, MODEL_CONFIG):
+    LABEL_COL = 'label'
+    VARIABLE_COL = 'encoded'
+
+    def __init__(self, model_config):
         self.encoding_value = 0
-        self.VARIABLE_COL = 'encoded'
-        self.LABEL_COL = 'label'
         self.X = None
         self.y = None
-        self.MODEL_CONFIG = MODEL_CONFIG
+        self.MODEL_CONFIG = model_config
 
     def preprocess(self, test_data: list):
         test_data = [x.replace('-', '') for x in test_data]
@@ -25,8 +26,8 @@ class DataFormatter:
         self.y = np.array(data[self.LABEL_COL])
         self.y = to_categorical(self.y)
 
-        X_pad = sequence.pad_sequences(self.X, maxlen=self.MODEL_CONFIG.MAX_LENGTH, padding='post', truncating='post')
-        dataset = tf.data.Dataset.from_tensor_slices((X_pad, self.y)).shuffle(
+        x_pad = sequence.pad_sequences(self.X, maxlen=self.MODEL_CONFIG.MAX_LENGTH, padding='post', truncating='post')
+        dataset = tf.data.Dataset.from_tensor_slices((x_pad, self.y)).shuffle(
             self.MODEL_CONFIG.SHUFFLE_BUFFER_SIZE).batch(self.MODEL_CONFIG.BATCH_SIZE)
         return dataset
 

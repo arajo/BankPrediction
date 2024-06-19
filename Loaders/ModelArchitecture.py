@@ -4,8 +4,8 @@ from tensorflow.keras.models import Sequential
 
 
 class ModelArchitecture:
-    def __init__(self, MODEL_CONFIG):
-        self.MODEL_CONFIG = MODEL_CONFIG
+    def __init__(self, model_config):
+        self.MODEL_CONFIG = model_config
 
     def architecture_model_v1(self, ):
         model = Sequential(

@@ -5,10 +5,10 @@ from Loaders.ModelArchitecture import ModelArchitecture
 
 
 class ModelLoader:
-    def __init__(self, model_name, MODEL_CONFIG):
-        self.MODEL_CONFIG = MODEL_CONFIG
+    def __init__(self, model_name, model_config):
+        self.MODEL_CONFIG = model_config
         self.model = self.build_model(model_name)
-        self.model.load_weights(MODEL_CONFIG.MODEL_PATH + model_name)
+        self.model.load_weights(model_config.BASE_MODEL_PATH + model_name)
         self.inverse_label_map, self.bank_dic = self.load_dictionary()
 
     def predict_top_k(self, test_data, k=5):

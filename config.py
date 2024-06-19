@@ -1,38 +1,39 @@
-class ModelConfigV1:
-    VERSION = "v1"
-    MAX_LENGTH = 14
-    EPOCH = 20
-    BATCH_SIZE = 32
-    SHUFFLE_BUFFER_SIZE = 100
-    EMBEDDING_DIM = 32
-    NUM_TARGET = 52
-    MODEL_PATH = './Models/'
-    LABEL_DICT_PATH = f'./data/code/{VERSION}/label_map.json'
-    BANK_DICT_PATH = f'./data/code/{VERSION}/bank_dic.json'
-    ADD_ENCODING = 1
-    INPUT_DIM = ADD_ENCODING + 10
+class BaseConfig:
+    def __init__(self):
+        self.BASE_MODEL_PATH = './Models/'
 
 
-class ModelConfigV2:
-    VERSION = "v2"
-    MAX_LENGTH = 20
-    EPOCH = 500
-    BATCH_SIZE = 512
-    SHUFFLE_BUFFER_SIZE = 1024
-    EMBEDDING_DIM = 32
-    NUM_TARGET = 54
-    MODEL_PATH = './Models/'
-    LABEL_DICT_PATH = f"./data/code/{VERSION}/label_map.json"
-    BANK_DICT_PATH = f"./data/code/{VERSION}/bank_dic.json"
-    n_trial = 2
-    TRAIN_MODEL_NAME = f'checkpoint-epoch-{EPOCH}-batch-{BATCH_SIZE}-trial-v2-00{n_trial}.keras'
-    TRAIN_MODEL_PATH = MODEL_PATH + TRAIN_MODEL_NAME
-    ADD_ENCODING = 0
-    INPUT_DIM = ADD_ENCODING + 10
+class ModelConfigV1(BaseConfig):
+    def __init__(self):
+        super().__init__()
+        self.VERSION = "v1"
+        self.MAX_LENGTH = 14
+        self.EPOCH = 20
+        self.BATCH_SIZE = 32
+        self.EMBEDDING_DIM = 32
+        self.NUM_TARGET = 52
+        self.ADD_ENCODING = 1
+
+
+class ModelConfigV2(BaseConfig):
+    def __init__(self):
+        super().__init__()
+        self.VERSION = "v2"
+        self.MAX_LENGTH = 20
+        self.EPOCH = 500
+        self.BATCH_SIZE = 1024
+        self.EMBEDDING_DIM = 32
+        self.NUM_TARGET = 54
+        self.n_trial = 2
+        self.TRAIN_MODEL_NAME = f'checkpoint-epoch-{self.EPOCH}-batch-{self.BATCH_SIZE}-trial-v2-00{self.n_trial}.keras'
+        self.TRAIN_MODEL_PATH = self.BASE_MODEL_PATH + self.TRAIN_MODEL_NAME
+        self.ADD_ENCODING = 0
 
 
 def get_model_config(model_name):
-    if 'v2' in model_name:
-        return ModelConfigV2
-    else:
-        return ModelConfigV1
+    config = ModelConfigV2() if 'v2' in model_name else ModelConfigV1()
+    config.SHUFFLE_BUFFER_SIZE = config.BATCH_SIZE * 2
+    config.LABEL_DICT_PATH = f"./data/code/{config.VERSION}/label_map.json"
+    config.BANK_DICT_PATH = f"./data/code/{config.VERSION}/bank_dic.json"
+    config.INPUT_DIM = config.ADD_ENCODING + 10
+    return config
