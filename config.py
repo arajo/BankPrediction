@@ -30,10 +30,10 @@ class ModelConfigV2(BaseConfig):
         self.ADD_ENCODING = 0
 
 
-def get_model_config(model_name):
-    config = ModelConfigV2() if 'v2' in model_name else ModelConfigV1()
-    config.SHUFFLE_BUFFER_SIZE = config.BATCH_SIZE * 2
-    config.LABEL_DICT_PATH = f"./data/code/{config.VERSION}/label_map.json"
-    config.BANK_DICT_PATH = f"./data/code/{config.VERSION}/bank_dic.json"
-    config.INPUT_DIM = config.ADD_ENCODING + 10
-    return config
+class Config:
+    def __init__(self, model_name):
+        self.config = ModelConfigV2() if 'v2' in model_name else ModelConfigV1()
+        self.config.SHUFFLE_BUFFER_SIZE = self.config.BATCH_SIZE * 2
+        self.config.LABEL_DICT_PATH = f"./data/code/{self.config.VERSION}/label_map.json"
+        self.config.BANK_DICT_PATH = f"./data/code/{self.config.VERSION}/bank_dic.json"
+        self.config.INPUT_DIM = self.config.ADD_ENCODING + 10

@@ -2,10 +2,10 @@ from Loaders.DataLoader import DataLoader
 from Jobs.DataFormatter import DataFormatter
 from Jobs.TrainModel import TrainModel
 from Jobs.TestModel import TestModel
-from config import get_model_config
+from config import Config
 
 if __name__ == '__main__':
-    MODEL_CONFIG = get_model_config('v2')
+    MODEL_CONFIG = Config('v2').config
     MODE = 'pred'  # init, train, valid, pred
 
     dataloader = DataLoader(MODEL_CONFIG)
