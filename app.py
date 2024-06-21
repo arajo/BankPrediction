@@ -17,8 +17,8 @@ def get_model_list():
 
 
 # @st.cache_resource
-def load_model(model_name, model_config):
-    return ModelLoader(model_name, model_config)
+def load_model(model_name):
+    return ModelLoader(model_name, app_logger)
 
 
 if "query" not in st.session_state:
@@ -57,7 +57,7 @@ model_name = st.selectbox(
 
 model_load_state = st.text('Loading model...')
 MODEL_CONFIG = Config(model_name).config
-model = load_model(model_name, MODEL_CONFIG)
+model = load_model(model_name)
 preprocessor = DataFormatter(MODEL_CONFIG)
 image = Image.open("./data/Picture1.png")
 model_load_state.text("All Loaded!")

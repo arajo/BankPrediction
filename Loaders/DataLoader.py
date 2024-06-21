@@ -1,5 +1,5 @@
-import pandas as pd
 import json
+import pandas as pd
 
 from sklearn.model_selection import train_test_split
 
@@ -10,10 +10,11 @@ class DataLoader:
     VALID_DATA_PATH = "./data/bank_accounts/valid.json"
     STRATIFY_COL = 'bank'
 
-    def __init__(self, model_config):
+    def __init__(self, model_config, logger):
         self.label_map, self.inverse_label_map = {}, {}
         self.bank_dic, self.inverse_bank_dic = {}, {}
         self.MODEL_CONFIG = model_config
+        self.logger = logger
 
     def generate_dict(self, data, save_dict=False):
         label_map = {l: i for i, l in enumerate(data.bank.unique())}
@@ -65,8 +66,13 @@ class DataLoader:
         elif mode == 'pred':
             data = None
 
+        self.load_dictionary()
+        return data
+
+    def load_dictionary(self):
+        self.logger.info("LABEL_DICT_PATH : " + self.MODEL_CONFIG.LABEL_DICT_PATH)
+        self.logger.info("BANK_DICT_PATH : " + self.MODEL_CONFIG.BANK_DICT_PATH)
         self.label_map = self.load_dataset(self.MODEL_CONFIG.LABEL_DICT_PATH)
         self.bank_dic = self.load_dataset(self.MODEL_CONFIG.BANK_DICT_PATH)
         self.inverse_label_map = {v: k for k, v in self.label_map.items()}
         self.inverse_bank_dic = {v: k for k, v in self.bank_dic.items()}
-        return data

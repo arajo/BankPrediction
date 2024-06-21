@@ -2,14 +2,16 @@ import tensorflow as tf
 
 from Loaders.DataLoader import DataLoader
 from Loaders.ModelArchitecture import ModelArchitecture
+from Config import Config
 
 
 class ModelLoader:
-    def __init__(self, model_name, model_config):
-        print(f"ModelLoader: {model_name=}")
-        self.MODEL_CONFIG = model_config
+    def __init__(self, model_name, logger):
+        self.logger = logger
+        self.logger.info("ModelLoader: " + model_name)
+        self.MODEL_CONFIG = Config(model_name).config
         self.model = self.build_model(model_name)
-        self.model.load_weights(model_config.BASE_MODEL_PATH + model_name)
+        self.model.load_weights(self.MODEL_CONFIG.BASE_MODEL_PATH + model_name)
         self.inverse_label_map, self.bank_dic = self.load_dictionary()
 
     def predict_top_k(self, test_data, k=5):
@@ -22,7 +24,7 @@ class ModelLoader:
         return results
 
     def load_dictionary(self, ):
-        dataloader = DataLoader(self.MODEL_CONFIG)
+        dataloader = DataLoader(self.MODEL_CONFIG, self.logger)
         dataloader.run('pred')
         if self.MODEL_CONFIG.DICT_VERSION == "v2":
             return dataloader.inverse_label_map, dataloader.inverse_bank_dic
