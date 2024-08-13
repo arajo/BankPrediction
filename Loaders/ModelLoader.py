@@ -26,10 +26,10 @@ class ModelLoader:
     def load_dictionary(self, ):
         dataloader = DataLoader(self.MODEL_CONFIG, self.logger)
         dataloader.run('pred')
-        if self.MODEL_CONFIG.DICT_VERSION == "v2":
-            return dataloader.inverse_label_map, dataloader.inverse_bank_dic
-        else:
+        if self.MODEL_CONFIG.DICT_VERSION == "v1":
             return dataloader.inverse_label_map, dataloader.bank_dic
+        else:
+            return dataloader.inverse_label_map, dataloader.inverse_bank_dic
 
     def build_model(self, model_name):
         if model_name.split('.')[0][-3:] in ['001', '002', '003', '004'] and 'v' not in model_name:
