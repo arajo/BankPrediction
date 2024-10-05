@@ -9,3 +9,4 @@ streamlit==1.30.0
 streamlit_keyup==0.2.0
 tensorflow==2.15.0
 xlwings==0.31.6
+slack_sdk==3.33.1
