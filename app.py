@@ -1,14 +1,17 @@
+import slack_sdk
 import streamlit as st
 from PIL import Image
 from st_keyup import st_keyup
 from os import listdir
 
+from Secret import Secret
 from Config import Config
 from ModelConfig import BaseConfig
 from Loaders.ModelLoader import ModelLoader
 from Jobs.DataFormatter import DataFormatter
 from logger import app_logger
 
+slack_client = slack_sdk.WebClient(token=Secret.slack_token)
 st.title('🏦 입금기관 예측 모델 테스트 💰')
 
 
@@ -46,6 +49,18 @@ def show_image(top_pred_bank, c2):
     if bank_image_path:
         bank_image = Image.open(default_image_path + bank_image_path)
         c2.image(bank_image)
+
+
+# Function to collect feedback
+def collect_feedback(query, predictions):
+    feedback = st.subheader("Are the predictions wrong?")
+    if st.button("Yes, summit"):
+        wrong_feedback = f"input: {query} \n{predictions}"
+
+        slack_client.chat_postMessage(channel='C07R6S1A7A4',
+                                      text=wrong_feedback)
+        st.session_state['feedback'] = feedback
+        st.success("Feedback submitted successfully!")
 
 
 model_names = sorted(get_model_list(), reverse=True)
@@ -93,3 +108,6 @@ if query:
         c1.write(predictions)
         show_image(top_pred_bank, c2)
         app_logger.info('input query: ' + query + ' predictions: ' + str(predictions))
+
+        # Display the feedback form
+        collect_feedback(query, predictions)
