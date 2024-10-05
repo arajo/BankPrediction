@@ -1,0 +1,24 @@
+v3
+ - 001 : base
+      -  Top 1 matching accuracy : 89.27 %
+      -  Top 1 & Top 2 matching accuracy : 94.53 %
+      -  Top 1 & Top 2 & Top 3 matching accuracy : 96.12 %
+      -  Top 1 & Top 2 & Top 3 & Top 4 matching accuracy : 97.05 %
+      -  Top 1 & Top 2 & Top 3 & Top 4 & Top 5 matching accuracy : 97.63 %
+
+ - 002 : base에 100000건 추가 학습
+      -  Top 1 matching accuracy : 96.26 %
+      -  Top 1 & Top 2 matching accuracy : 98.32 %
+      -  Top 1 & Top 2 & Top 3 matching accuracy : 98.86 %
+      -  Top 1 & Top 2 & Top 3 & Top 4 matching accuracy : 99.22 %
+      -  Top 1 & Top 2 & Top 3 & Top 4 & Top 5 matching accuracy : 99.47 %
+   > 못맞춘 것들은 Toss 예측결과랑 비슷함, 우리 데이터에 문제가 있는걸까?
+   > 키움증권은 이제 맞춤
+
+ - 003 : 002에 200000건 추가 학습
+      -  Top 1 matching accuracy : 96.34 %
+      -  Top 1 & Top 2 matching accuracy : 98.31 %
+      -  Top 1 & Top 2 & Top 3 matching accuracy : 98.91 %
+      -  Top 1 & Top 2 & Top 3 & Top 4 matching accuracy : 99.24 %
+      -  Top 1 & Top 2 & Top 3 & Top 4 & Top 5 matching accuracy : 99.48 %
+   > Top3 기준 못 맞춘 것 중 핸드폰 번호 패턴(010, 11자리)인 것 79% 수준
