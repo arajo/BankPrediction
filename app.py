@@ -53,8 +53,9 @@ def show_image(top_pred_bank, c2):
 # Function to collect feedback
 def collect_feedback(query, predictions):
     feedback = st.subheader("Are the predictions wrong?")
+    real_bank = st.text_input("What is the answer?")
     if st.button("Yes, summit"):
-        wrong_feedback = f"input: {query} \n{predictions}"
+        wrong_feedback = f"input: {query} \n{predictions} \nreal_bank: {real_bank}"
 
         slack_client.chat_postMessage(channel='C07R6S1A7A4',
                                       text=wrong_feedback)
