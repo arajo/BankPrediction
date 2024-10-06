@@ -4,14 +4,13 @@ from PIL import Image
 from st_keyup import st_keyup
 from os import listdir
 
-from Secret import Secret
 from Config import Config
 from ModelConfig import BaseConfig
 from Loaders.ModelLoader import ModelLoader
 from Jobs.DataFormatter import DataFormatter
 from logger import app_logger
 
-slack_client = slack_sdk.WebClient(token=Secret.slack_token)
+slack_client = slack_sdk.WebClient(token=st.secrets['SLACK_TOKEN'])
 st.title('🏦 입금기관 예측 모델 테스트 💰')
 
 
