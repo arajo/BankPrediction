@@ -9,6 +9,8 @@ class Config:
             self.config = ModelConfigV1()
         else:
             _version = _version[0][-1]
+            if _version == 4:
+                _version -= 1
             exec(f"self.config = ModelConfigV{_version}()")
 
         self.config.SHUFFLE_BUFFER_SIZE = self.config.BATCH_SIZE * 2
