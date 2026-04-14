@@ -26,7 +26,8 @@
 
 ## 🚀 Demo
 
-👉 https://bankprediction-rpmximxeacjclgdn45hbq8.streamlit.app/
+👉 https://ugewwgebqq6ow5fdjkm5he.streamlit.app/
+
 
 ![App Demo](./data/app.png)
 
